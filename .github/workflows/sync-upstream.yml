@@ -27,6 +27,12 @@ jobs:
           git pull --unshallow
           git remote add upstream https://github.com/stashapp/stash.git
           git fetch upstream
+          
+          git checkout develop
+          git merge --no-edit upstream/develop
+          git push origin develop
+          
           git checkout dev
           git merge --no-edit upstream/develop
           git push origin dev
+          
