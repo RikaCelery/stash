@@ -22,6 +22,7 @@ jobs:
 
       - name: Sync upstream dev branch
         run: |
+          git remote add upstrame https://github.com/stashapp/stash.git
           git fetch upstream
           git checkout dev
           git merge upstream/develop
