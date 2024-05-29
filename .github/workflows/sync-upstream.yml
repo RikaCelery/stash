@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: develop
+          ref: dev
 
       - name: Sync upstream dev branch
         run: |
@@ -27,6 +27,6 @@ jobs:
           git pull --unshallow
           git remote add upstream https://github.com/stashapp/stash.git
           git fetch upstream
-          git checkout develop
+          git checkout dev
           git merge --no-edit upstream/develop
-          git push origin develop
+          git push origin dev
