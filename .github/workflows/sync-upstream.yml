@@ -7,12 +7,12 @@ on:
 
 jobs:
 
-  sync:
+  sync-dev:
     runs-on: ubuntu-latest
 
     # 添加并发控制
     concurrency:
-      group: sync-or-merge
+      group: sync-or-merge-dev
       cancel-in-progress: true
 
     steps:
@@ -31,6 +31,16 @@ jobs:
           git checkout dev
           git merge --no-edit upstream/develop
           git push origin dev
+      
+  sync-develop:
+    runs-on: ubuntu-latest
+
+    # 添加并发控制
+    concurrency:
+      group: sync-or-merge-dvelop
+      cancel-in-progress: true
+      
+    steps:
       
       - uses: actions/checkout@v2
         with:
