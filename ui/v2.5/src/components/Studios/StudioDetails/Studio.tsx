@@ -31,7 +31,7 @@ import {
   CompressedStudioDetailsPanel,
   StudioDetailsPanel,
 } from "./StudioDetailsPanel";
-import { StudioGroupsPanel } from "./StudioMoviesPanel";
+import { StudioGroupsPanel } from "./StudioGroupsPanel";
 import {
   faTrashAlt,
   faLink,
@@ -109,7 +109,7 @@ const StudioPage: React.FC<IProps> = ({ studio, tabKey }) => {
   const performerCount =
     (showAllCounts ? studio.performer_count_all : studio.performer_count) ?? 0;
   const groupCount =
-    (showAllCounts ? studio.movie_count_all : studio.movie_count) ?? 0;
+    (showAllCounts ? studio.group_count_all : studio.group_count) ?? 0;
 
   const populatedDefaultTab = useMemo(() => {
     let ret: TabKey = "scenes";

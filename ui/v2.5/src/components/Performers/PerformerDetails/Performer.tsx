@@ -27,7 +27,7 @@ import {
 } from "./PerformerDetailsPanel";
 import { PerformerScenesPanel } from "./PerformerScenesPanel";
 import { PerformerGalleriesPanel } from "./PerformerGalleriesPanel";
-import { PerformerGroupsPanel } from "./PerformerMoviesPanel";
+import { PerformerGroupsPanel } from "./PerformerGroupsPanel";
 import { PerformerImagesPanel } from "./PerformerImagesPanel";
 import { PerformerAppearsWithPanel } from "./performerAppearsWithPanel";
 import { PerformerEditPanel } from "./PerformerEditPanel";
@@ -145,7 +145,7 @@ const PerformerPage: React.FC<IProps> = ({ performer, tabKey }) => {
         ret = "galleries";
       } else if (performer.image_count != 0) {
         ret = "images";
-      } else if (performer.movie_count != 0) {
+      } else if (performer.group_count != 0) {
         ret = "groups";
       }
     }
@@ -325,7 +325,7 @@ const PerformerPage: React.FC<IProps> = ({ performer, tabKey }) => {
             {intl.formatMessage({ id: "groups" })}
             <Counter
               abbreviateCounter={abbreviateCounter}
-              count={performer.movie_count}
+              count={performer.group_count}
               hideZero
             />
           </>
