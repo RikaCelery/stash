@@ -1,8 +1,9 @@
 name: Build
 
 on:
+  workflow_dispatch:
   push:
-    branches: [ develop, master,dev ]
+    branches: [ develop, master, dev ]
   pull_request:
   release:
     types: [ published ]
