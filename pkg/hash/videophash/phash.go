@@ -3,6 +3,7 @@ package videophash
 import (
 	"bytes"
 	"context"
+	"encoding/hex"
 	"fmt"
 	"image"
 	"image/color"
@@ -54,7 +55,7 @@ func generateSpriteScreenshot(encoder *ffmpeg.FFMpeg, input string, t float64) (
 
 	img, _, err := image.Decode(reader)
 	if err != nil {
-		return nil, fmt.Errorf("decoding image: %w", err)
+		return nil, fmt.Errorf("decoding image: %w,%s", err, hex.Dump(data))
 	}
 
 	return img, nil
