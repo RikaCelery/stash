@@ -91,7 +91,7 @@ func generateSprite(encoder *ffmpeg.FFMpeg, videoFile *models.VideoFile) (image.
 
 		img, err := generateSpriteScreenshot(encoder, videoFile.Path, time)
 		if err != nil {
-			if strings.Contains(err.Error(), "ffmpeg command produced no output") {
+			if strings.Contains(fmt.Sprintf("%v", err.Error()), "ffmpeg command produced no output") {
 				if i+1 == chunkCount {
 					logger.Warnf("[generator] failed to generate sprite screenshot for %s at time %f: %s, %d/%d skipped last", videoFile.Path, time, err, i+1, chunkCount)
 
