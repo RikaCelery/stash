@@ -8,6 +8,7 @@ import (
 	"image"
 	"image/color"
 	"math"
+	"strings"
 
 	"github.com/corona10/goimagehash"
 	"github.com/disintegration/imaging"
@@ -90,6 +91,15 @@ func generateSprite(encoder *ffmpeg.FFMpeg, videoFile *models.VideoFile) (image.
 
 		img, err := generateSpriteScreenshot(encoder, videoFile.Path, time)
 		if err != nil {
+			if strings.Contains(err.Error(), "ffmpeg command produced no output") {
+				if i+1 == chunkCount {
+					logger.Warnf("[generator] failed to generate sprite screenshot for %s at time %f: %s, %d/%d skipped last", videoFile.Path, time, err, i+1, chunkCount)
+
+					break
+				} else {
+					logger.Warnf("[generator] failed to generate sprite screenshot for %s at time %f: %s, %d/%d", videoFile.Path, time, err, i+1, chunkCount)
+				}
+			}
 			return nil, fmt.Errorf("generating sprite screenshot: %w", err)
 		}
 
