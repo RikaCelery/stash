@@ -144,16 +144,16 @@ jobs:
         path: dist/stash-ui.zip
 
     - name: Update latest_develop tag
-      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/develop' }}
-      run : git tag -f latest_develop; git push -f --tags
+      if: ${{ github.event_name == 'push' && ( github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/dev' ) }}
+      run : git tag -f latest_develop_celery; git push -f --tags
 
     - name: Development Release
-      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/develop' }}
+      if: ${{ github.event_name == 'push' && ( github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/dev' ) }}
       uses: marvinpinto/action-automatic-releases@v1.1.2
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         prerelease: true
-        automatic_release_tag: latest_develop
+        automatic_release_tag: latest_develop_celery
         title: "${{ env.STASH_VERSION }}: Latest development build"
         files: |
           dist/Stash.app.zip
