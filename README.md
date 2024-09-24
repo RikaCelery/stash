@@ -1,5 +1,6 @@
 # Stash
 
+[![Sync upstream](https://github.com/RikaCelery/stash/actions/workflows/sync-upstream.yml/badge.svg?branch=dev)](https://github.com/RikaCelery/stash/actions/workflows/sync-upstream.yml)
 [![Build](https://github.com/stashapp/stash/actions/workflows/build.yml/badge.svg?branch=develop&event=push)](https://github.com/stashapp/stash/actions/workflows/build.yml)
 [![Docker pulls](https://img.shields.io/docker/pulls/stashapp/stash.svg)](https://hub.docker.com/r/stashapp/stash 'DockerHub')
 [![GitHub Sponsors](https://img.shields.io/github/sponsors/stashapp?logo=github)](https://github.com/sponsors/stashapp)
