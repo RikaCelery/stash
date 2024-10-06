@@ -7,32 +7,6 @@ on:
 
 jobs:
 
-  sync-dev:
-    runs-on: ubuntu-latest
-
-    # 添加并发控制
-    concurrency:
-      group: sync-or-merge-dev
-      cancel-in-progress: true
-
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: develop
-
-      - name: Sync upstream dev branch
-        run: |
-          git config --global user.name 'GitHub Actions'
-          git config --global user.email 'actions@github.com'
-          git pull --unshallow
-          git remote add upstream https://github.com/stashapp/stash.git
-          git fetch upstream
-          
-          git checkout dev
-          git merge --no-edit --allow-unrelated-histories upstream/develop
-          git push origin dev
-
-
   sync-develop:
     runs-on: ubuntu-latest
 
