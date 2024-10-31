@@ -231,6 +231,11 @@ export function useListSelect<T extends { id: string }>(items: T[]) {
 
     setItemsSelected((prevSelected) => {
       if (selected) {
+        // prevent duplicates
+        if (prevSelected.some((v) => v.id === id)) {
+          return prevSelected;
+        }
+
         const item = items.find((i) => i.id === id);
         if (item) {
           return [...prevSelected, item];
@@ -253,7 +258,10 @@ export function useListSelect<T extends { id: string }>(items: T[]) {
 
     const subset = items.slice(start, end + 1);
 
-    const newSelected = itemsSelected.concat(subset);
+    // prevent duplicates
+    const toAdd = subset.filter((item) => !selectedIds.has(item.id));
+
+    const newSelected = itemsSelected.concat(toAdd);
     setItemsSelected(newSelected);
   }
 
