@@ -1,0 +1,35 @@
+name: Sync upstream
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+
+  sync-develop:
+    runs-on: ubuntu-latest
+
+    # 添加并发控制
+    concurrency:
+      group: sync-or-merge-dvelop
+      cancel-in-progress: true
+
+    steps:
+
+      - uses: actions/checkout@v2
+        with:
+          ref: develop
+
+      - name: Sync upstream dev branch
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+          git pull --unshallow
+          git remote add upstream https://github.com/stashapp/stash.git
+          git fetch upstream
+          
+          git checkout develop
+          git merge --ff-only --no-edit upstream/develop
+          git push origin develop
+          

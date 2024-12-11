@@ -3,10 +3,12 @@ package videophash
 import (
 	"bytes"
 	"context"
+	"encoding/hex"
 	"fmt"
 	"image"
 	"image/color"
 	"math"
+	"strings"
 
 	"github.com/corona10/goimagehash"
 	"github.com/disintegration/imaging"
@@ -54,7 +56,7 @@ func generateSpriteScreenshot(encoder *ffmpeg.FFMpeg, input string, t float64) (
 
 	img, _, err := image.Decode(reader)
 	if err != nil {
-		return nil, fmt.Errorf("decoding image: %w", err)
+		return nil, fmt.Errorf("decoding image: %w,%s", err, hex.Dump(data))
 	}
 
 	return img, nil
@@ -89,6 +91,15 @@ func generateSprite(encoder *ffmpeg.FFMpeg, videoFile *models.VideoFile) (image.
 
 		img, err := generateSpriteScreenshot(encoder, videoFile.Path, time)
 		if err != nil {
+			if strings.Contains(fmt.Sprintf("%v", err.Error()), "ffmpeg command produced no output") {
+				if i+1 == chunkCount {
+					logger.Warnf("[generator] failed to generate sprite screenshot for %s at time %f: %s, %d/%d skipped last", videoFile.Path, time, err, i+1, chunkCount)
+
+					break
+				} else {
+					logger.Warnf("[generator] failed to generate sprite screenshot for %s at time %f: %s, %d/%d", videoFile.Path, time, err, i+1, chunkCount)
+				}
+			}
 			return nil, fmt.Errorf("generating sprite screenshot: %w", err)
 		}
 
