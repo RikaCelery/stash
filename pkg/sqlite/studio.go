@@ -133,7 +133,7 @@ var (
 			},
 			fkColumn:     tagIDColumn,
 			foreignTable: tagTable,
-			orderBy:      "tags.name ASC",
+			orderBy:      "COALESCE(tags.sort_name, tags.name) ASC",
 		},
 	}
 )
@@ -586,6 +586,7 @@ var studioSortOptions = sortOptions{
 	"scenes_count",
 	"random",
 	"rating",
+	"tag_count",
 	"updated_at",
 }
 
